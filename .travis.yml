@@ -10,5 +10,3 @@ deploy:
 script:
   - |
     echo "derp" >> google-trash.deb
-    dpkg-deb --build /home/travis/google-trash
-    dpkg -i google-trash.deb
