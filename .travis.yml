@@ -1,0 +1,16 @@
+os: linux
+dist: trusty
+
+script:
+  - |
+    sudo apt-get update
+    sudo apt -get install cmake curl
+    git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
+    cd grpc/
+    git submodule update --init
+    mkdir -p build/
+    mkdir -p deb/
+    cd build/
+    cmake -DCMAKE_INSTALL_PREFIX:PATH=../deb ..
+    make
+    make install
