@@ -1,0 +1,5 @@
+<span class="Apple-style-span" style="font-family: Consolas, Monaco, monospace; font-size: 12px; white-space: pre;">Package: google-trash
+</span><span class="Apple-style-span" style="font-family: Consolas, Monaco, monospace; font-size: 12px; white-space: pre;">Version: 0.1
+</span><span class="Apple-style-span" style="font-family: Consolas, Monaco, monospace; font-size: 12px; white-space: pre;">Maintainer: Greg Williamson
+</span><span class="Apple-style-span" style="font-family: Consolas, Monaco, monospace; font-size: 12px; white-space: pre;">Architecture: amd64
+</span><span class="Apple-style-span" style="font-family: Consolas, Monaco, monospace; font-size: 12px; white-space: pre;">Description: recent builds of google crap and dependencies for travis-ci

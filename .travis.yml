@@ -1,15 +1,14 @@
 dist: trusty
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file: google-trash.deb
+  skip_cleanup: true
+  on:
+    tags: true
 
 script:
   - |
-    sudo apt-get update
-    sudo apt -get install cmake curl
-    git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
-    cd grpc/
-    git submodule update --init
-    mkdir -p build/
-    mkdir -p /home/travis/deb/
-    cd build/
-    cmake -DCMAKE_INSTALL_PREFIX:PATH=/home/travis/deb ..
-    make
-    make install
+    echo "derp" >> google-trash.deb
+    dpkg-deb --build /home/travis/google-trash
+    dpkg -i google-trash.deb
