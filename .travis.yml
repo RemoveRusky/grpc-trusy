@@ -1,16 +1,31 @@
-os: linux
 dist: trusty
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file: google-trash.deb
+  skip_cleanup: true
+  on:
+    tags: true
 
 script:
   - |
     sudo apt-get update
-    sudo apt -get install cmake curl
-    git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
-    cd grpc/
+    sudo apt-get install cmake curl
+    git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc /home/travis/grpc
+    pushd /home/travis/grpc
     git submodule update --init
-    mkdir -p build/
-    mkdir -p deb/
-    cd build/
-    cmake -DCMAKE_INSTALL_PREFIX:PATH=../deb ..
+    popd
+    mkdir -p /home/travis/build/
+    mkdir -p /home/travis/google-trash/DEBIAN
+    pushd /home/travis/build/
+    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr /home/travis/grpc
     make
-    make install
+    make install DESTDIR=/home/travis/google-trash
+    install -v ./grpc_* /home/travis/google-trash/usr/bin/
+    find . -name "*.a" -or -name "*.so" | xargs -I % install -v % /home/travis/google-trash/usr/lib/
+    find /home/travis/grpc -name "include" | xargs -I % cp -R -v % /home/travis/google-trash/usr/
+    popd
+    cp ./control /home/travis/google-trash/DEBIAN/
+    dpkg-deb --build /home/travis/google-trash
+    mv /home/travis/google-trash.deb .
+    sudo dpkg -i --force-all google-trash.deb

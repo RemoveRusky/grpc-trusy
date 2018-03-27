@@ -1,0 +1,5 @@
+Package: google-trash
+Version: 0.1
+Maintainer: Greg Williamson
+Architecture: amd64
+Description: recent builds of google crap and dependencies for travis-ci
