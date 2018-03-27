@@ -8,8 +8,8 @@ script:
     cd grpc/
     git submodule update --init
     mkdir -p build/
-    mkdir -p deb/
+    mkdir -p /home/travis/deb/
     cd build/
-    cmake -DCMAKE_INSTALL_PREFIX:PATH=../deb ..
+    cmake -DCMAKE_INSTALL_PREFIX:PATH=/home/travis/deb ..
     make
     make install
